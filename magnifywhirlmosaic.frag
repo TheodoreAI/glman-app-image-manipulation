@@ -2,6 +2,7 @@
 uniform float uSc; // s center of the magnifying lens
 uniform float uTc; // t center of the magic lens
 uniform float uMag; // magnification factor
+uniform float uWhirl; // whirling factor
 uniform float uRad; // radius of the lens
 
 
@@ -25,7 +26,18 @@ void main(){
         //* inside the magnifying lens: apply the maginification */
 
         float r_prime = r * uMag; //  scale radius for the magnifications process
-        vec2 st_prime = (r > 0.0 ) ? (r_prime / r) * st + vec2(uSc, uTc) : uvec2(uSc, uTc); // Restore original offset
+        vec2 st_prime = (r > 0.0 ) ? (r_prime / r) * st + vec2(uSc, uTc) : vec2(uSc, uTc); // Restore original offset
+
+       
+
+        //* whirling effect */
+        float theta = atan(st.t, st.s);
+        float theta_prime = theta - uWhirl * r_prime;
+
+        st_prime = r_prime * vec2(cos(theta_prime), sin(theta_prime));
+        st_prime += vec2(uSc, uTc);
+
+        
 
         vec3 rgb = texture(uImageUnit, st_prime).rgb;
         fragColor = vec4(rgb, 1.);
