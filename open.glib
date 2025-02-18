@@ -9,8 +9,8 @@ Fragment magnifywhirlmosaic.frag
 Program  MagnifyWhirlMosaic				\
 	uSc	<0. .5 1.>				\
 	uTc	<0. .5 1.>				\
-	uRad   	<0.01 ?? ??>				\
-	uMag	<.1 ?? ??>				\
+	uRad   	<0.01 0.1 1.>				\
+	uMag	<.1 .5 1.5>				\
 	uWhirl	<-30. 0. 30.>				\
 	uMosaic <0.001 0.001 0.1>			\
 	uImageUnit  5
