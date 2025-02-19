@@ -3,6 +3,7 @@ uniform float uSc; // s center of the magnifying lens
 uniform float uTc; // t center of the magic lens
 uniform float uMag; // magnification factor
 uniform float uWhirl; // whirling factor
+uniform float uMosaic; // mosaic factor
 uniform float uRad; // radius of the lens
 
 
@@ -37,7 +38,15 @@ void main(){
         st_prime = r_prime * vec2(cos(theta_prime), sin(theta_prime));
         st_prime += vec2(uSc, uTc);
 
-        
+        //* The Mosaic effect! */
+        int numins = int(st_prime.s / uMosaic);
+        int numint = int(st_prime.t / uMosaic);
+
+        float sc = float(numins) * uMosaic + uMosaic / 2; // Center of the block
+        float tc = float(numint) * uMosaic + uMosaic / 2;
+
+        st_prime.s = sc;
+        st_prime.t = tc;
 
         vec3 rgb = texture(uImageUnit, st_prime).rgb;
         fragColor = vec4(rgb, 1.);
