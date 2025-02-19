@@ -26,7 +26,7 @@ void main(){
     }else{
         //* inside the magnifying lens: apply the maginification */
 
-        float r_prime = r * uMag; //  scale radius for the magnifications process
+        float r_prime = r * uMag; //  scale radius for the magnification process
         vec2 st_prime = (r > 0.0 ) ? (r_prime / r) * st + vec2(uSc, uTc) : vec2(uSc, uTc); // Restore original offset
 
        
@@ -45,9 +45,10 @@ void main(){
         float sc = float(numins) * uMosaic + uMosaic / 2; // Center of the block
         float tc = float(numint) * uMosaic + uMosaic / 2;
 
-        st_prime.s = sc;
+        st_prime.s = sc; //* assign the centers*/
         st_prime.t = tc;
 
+        //* make sure its a vec4 into the fragColor */
         vec3 rgb = texture(uImageUnit, st_prime).rgb;
         fragColor = vec4(rgb, 1.);
     }
